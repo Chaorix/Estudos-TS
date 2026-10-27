@@ -401,6 +401,11 @@
                         if (input.value != '') {
                             let idDivPai = input.closest('div').id;
                             let inputsFilhos = document.getElementById(idDivPai).querySelectorAll(':scope > input')
+
+                            inputsFilhos.forEach(filho => {
+                                filho.value = filho.value.toLowerCase();
+                            });
+
                             let i = idDivPai;
                             //console.log(`index: ${i}`)
                             //console.log(inputsFilhos)
@@ -409,12 +414,12 @@
 
                             inputsFilhos.forEach(filho => {
 
-                                if (filho.value.toLowerCase().trim() == '') {
+                                if (filho.value.trim() == '') {
 
                                     alert(`${filho.id} vazio`)
 
                                 } else {
-                                    tentativa =+ filho.value.toLowerCase();
+                                    tentativa = + filho.value;
                                 }
                             });
                             alert(`Tentativa: ${tentativa}`)
@@ -427,7 +432,7 @@
                                 tentativa = palavras[iPalavraAcentuada];
                                 tentativa = tentativa.split('');
                                 inputsFilhos.forEach((filho, i) => {
-                                    filho.value.toLowerCase().toLowerCase() = tentativa[i];
+                                    filho.value = tentativa[i];
                                 });
                                 //console.log(`Funcionou: ${tentativa}`)
 
@@ -439,26 +444,26 @@
 
                                     inputs[i].disabled = true;
 
-                                    let qtdLetras = palavra.filter(l => l === filho.value.toLowerCase());
-                                    let qtdLetrasCertas = letrasCertas.filter(l => l === filho.value.toLowerCase());
-                                    let qtdLetrasContidas = letrasContidas.filter(l => l === filho.value.toLowerCase());
+                                    let qtdLetras = palavra.filter(l => l === filho.value);
+                                    let qtdLetrasCertas = letrasCertas.filter(l => l === filho.value);
+                                    let qtdLetrasContidas = letrasContidas.filter(l => l === filho.value);
 
                                     //Letra no lugar certo
-                                    if (filho.value.toLowerCase() === palavra[iAux]) {
+                                    if (filho.value === palavra[iAux]) {
                                         if (qtdLetras.length === qtdLetrasContidas.length) {
-                                            let contidos = Array.from(inputsFilhos).filter(i => i.value == filho.value.toLowerCase());
+                                            let contidos = Array.from(inputsFilhos).filter(i => i.value == filho.value);
                                             contidos[0].classList.remove('contemLetra');
                                             contidos[0].classList.add('letraErrada');
                                             //console.log(contidos)
                                         }
                                         inputs[i].classList.remove('letra');
                                         inputs[i].classList.add('letraCerta');
-                                        letrasCertas[i] = filho.value.toLowerCase();
+                                        letrasCertas[i] = filho.value;
                                         acertos++;
                                         // console.log(`acertos: ${acertos}`)
                                     }
                                     //Letra na palavra, mas no lugar errado
-                                    else if (palavra.includes(filho.value.toLowerCase())) {
+                                    else if (palavra.includes(filho.value)) {
 
                                         if ((qtdLetras.length == qtdLetrasCertas.length) || ((qtdLetrasContidas.length + qtdLetrasCertas.lenght) === qtdLetras.length)) {
                                             inputs[i].classList.remove('letra');
@@ -466,7 +471,7 @@
                                         } else if (qtdLetras.length > qtdLetrasContidas.length) {
                                             inputs[i].classList.remove('letra');
                                             inputs[i].classList.add('contemLetra')
-                                            letrasContidas[i] = filho.value.toLowerCase();
+                                            letrasContidas[i] = filho.value;
                                         } else {
                                             inputs[i].classList.remove('letra');
                                             inputs[i].classList.add('letraErrada')
