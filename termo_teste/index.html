@@ -6,6 +6,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
     <link href="https://fonts.cdnfonts.com/css/dumb-n-silly" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/equestriacyrillic" rel="stylesheet">
+
 
     <style>
         body {
@@ -49,7 +51,6 @@
             font-family: 'Dumb N Silly', sans-serif;
             font-size: xx-large;
             transition: all ease-in-out 4s;
-            animation: tremo infinite 100ms;
         }
 
         #titulo.dark-mode {
@@ -61,15 +62,16 @@
         }
 
         .letraBase {
-            width: 10%;
+            width: 15%;
             height: 100%;
             text-align: center;
             border-radius: 10px;
-            font-size: large;
             text-transform: uppercase;
             transition: all ease-in-out 5s;
             caret-color: transparent;
             padding: 5px;
+            font-family: 'Equestria_Cyrillic', sans-serif;
+            color: #000000;
         }
 
         .letra {
@@ -80,6 +82,7 @@
         .letra.dark-mode {
             border: 2px solid #232926;
             background-color: #232926;
+            color: #fff;
         }
 
         .letra:focus {
@@ -95,9 +98,22 @@
         }
 
         @keyframes tremo {
-
             50% {
                 transform: translateX(-1px);
+            }
+        }
+
+        @keyframes pisca {
+            25% {
+                -webkit-text-stroke: 1px #e00000;
+            }
+
+            50% {
+                color: #e00000;
+            }
+
+            75% {
+                -webkit-text-stroke: 1px #e0000049;
             }
         }
 
@@ -186,12 +202,12 @@
         <img src="https://media.tenor.com/sbfBfp3FeY8AAAAj/oia-uia.gif" alt="uuiauu">
     </div>
 
-    <div class="container flex w-[60vw] h-[75vh] rounded-lg items-center flex-col" id="principal">
-        <div id="titulo" class=" mt-5 h-[10%] titulo w-[15%]">TREMO</div>
+    <div class="container flex w-[80vw] md:w-[60vw] h-[75vh] rounded-lg items-center flex-col" id="principal">
+        <div id="titulo" class=" mt-5 h-[10%] titulo w-full text-center">TREMO</div>
 
-        <div class="flex flex-col h-[65%] shrink gap-7">
+        <div class="flex flex-col h-[65%] shrink gap-7 text-sm md:text-base">
             <div id="0" class="gap-2 flex flex-row w-full items-center justify-center h-[25%]">
-                <input type="text" maxlength="1" class="letraBase letra" autofocus>
+                <input type="text" maxlength="1" class="letraBase letra" autofocus id="input1">
                 <input type="text" maxlength="1" class="letraBase letra">
                 <input type="text" maxlength="1" class="letraBase letra">
                 <input type="text" maxlength="1" class="letraBase letra">
@@ -237,6 +253,10 @@
 
         window.addEventListener('load', () => {
             document.body.classList.remove('no-transition')
+        })
+
+        document.getElementById('input1').addEventListener('focus', () => {
+            document.getElementById('titulo').style.animation = 'tremo infinite 100ms, pisca infinite 3s ease-in-out';
         })
 
         function toggleTheme() {
@@ -397,7 +417,7 @@
                                     tentativa = tentativa + filho.value;
                                 }
                             });
-                            //console.log(`Tentativa: ${tentativa}`)
+                            alert(`Tentativa: ${tentativa}`)
 
 
                             //console.log(palavrasLimpas)
@@ -435,7 +455,7 @@
                                         inputs[i].classList.add('letraCerta');
                                         letrasCertas[i] = filho.value;
                                         acertos++;
-                                       // console.log(`acertos: ${acertos}`)
+                                        // console.log(`acertos: ${acertos}`)
                                     }
                                     //Letra na palavra, mas no lugar errado
                                     else if (palavra.includes(filho.value)) {
