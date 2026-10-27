@@ -194,8 +194,9 @@
     <div class="bg-black/30 h-[100vh] w-[100vw] absolute flex justify-center items-center hidden opacity-0  transition-all ease-in-out duration-2000"
         id="sucesso">
         <div class="bg-white w-[70vw] h-[30%] rounded-md flex justify-center items-center text-center shrink">
-            <img src="https://media.tenor.com/sbfBfp3FeY8AAAAj/oia-uia.gif" alt="" class="animate-bounce w-[35px] md:w-[70px]">
-            <h1 class="font-bold text-green-500 text-md md:text-lg">Parabéns jogador!!</h1>
+            <img src="https://media.tenor.com/sbfBfp3FeY8AAAAj/oia-uia.gif" alt=""
+                class="animate-bounce w-[35px] md:w-[70px]">
+            <h1 class="font-bold text-green-500 text-md md:text-lg" id="textoModal">Parabéns jogador!!</h1>
             <img src="https://files.catbox.moe/x96g3i.png" alt="" class="animate-bounce w-[35px] md:w-[70px]">
         </div>
     </div>
@@ -379,9 +380,10 @@
 
                     //Apagar e mover para esquerda
                     case 'Backspace':
-                        input.value = ''
-                        if (inputs[i - 1]) {
-                            inputs[i - 1].focus()
+                        if (input.value == '') {
+                            if (inputs[i - 1]) {
+                                inputs[i - 1].focus()
+                            }
                         }
                         break;
 
@@ -494,52 +496,65 @@
                                         mosquito.remove()
                                     });
                                     document.getElementById('fundo').remove()
-                                    modal.classList.remove('hidden')
-                                    modal.classList.remove('opacity-0')
+                                    modal.classList.remove('hidden', 'opacity-0')
                                     document.getElementById('uuiauu').disabled = true
                                 } else {
                                     let idProximoGrupo = +idDivPai + 5;
                                     //console.log(idProximoGrupo)
-                                    let proximoGrupo = document.getElementById(idProximoGrupo).querySelectorAll(':scope > input') || null;
+                                    let proximoGrupo = document.getElementById(idProximoGrupo)?.querySelectorAll(':scope > input');
                                     if (proximoGrupo) {
                                         proximoGrupo.forEach(proximoInput => {
                                             proximoInput.disabled = false;
                                             //console.log(proximoInput)
                                         })
                                         proximoGrupo[0].focus();
-
-                                        errosJogador++;
-
-                                        switch (errosJogador) {
-                                            case 1:
-                                                for (let i = 0; i < 30; i++) {
-                                                    gerarMosquito();
-                                                }
-                                                break;
-
-                                            case 2:
-                                                document.getElementById('fundo').classList.remove('hidden')
-                                                break;
-                                            case 3:
-                                                toastErro('erro3');
-                                                break;
-
-                                            case 4:
-                                                toastErro('erro4');
-                                                let mosquitos = document.querySelectorAll('.fa-mosquito')
-                                                mosquitos.forEach(mosquito => {
-                                                    mosquito.remove()
-                                                });
-                                                document.getElementById('fundo').remove()
-                                                break;
-                                            case 5:
-                                                break;
-
-                                            default:
-                                                break;
-                                        }
-
+                                        
                                     }
+                                    errosJogador++;
+                                    console.log('Erros Jogador: ' + errosJogador)
+
+                                    switch (errosJogador) {
+                                        case 1:
+                                            for (let i = 0; i < 30; i++) {
+                                                gerarMosquito();
+                                            }
+                                            break;
+
+                                        case 2:
+                                            document.getElementById('fundo').classList.remove('hidden')
+                                            break;
+                                        case 3:
+                                            toastErro('erro3');
+                                            break;
+
+                                        case 4:
+                                            toastErro('erro4');
+                                            let mosquitos = document.querySelectorAll('.fa-mosquito')
+                                            mosquitos.forEach(mosquito => {
+                                                mosquito.remove()
+                                            });
+                                            document.getElementById('fundo').remove()
+                                            break;
+                                        case 5:
+                                            let textoModal = document.getElementById('textoModal')
+                                            textoModal.textContent = 'Não consigo imaginar o quão frustante deve ter sido perder, de verdade, sério, eu não consigo imaginar como você foi capaz de acessar isso aqui e não conseguir adivinhar uma simples palavra de 5 letras. Assite um desenho infantil, talvez você consiga compreender'
+                                            textoModal.classList.replace('text-md', 'text-sm')
+                                            textoModal.classList.add('text-red-500')
+                                            textoModal.classList.remove('font-bold')
+                                            document.getElementById('sucesso').classList.remove('hidden', 'opacity-0')
+                                            let desenho = document.createElement('button');
+                                            desenho.innerHTML = '<a href=\"https://www.google.com/goto?url=CAESWQHrOzAVYo439RIKI-fo2SBld_UkB37dIGMiPmfEyMqZVs9PuarZfcpb97FJUyR3bHEOmx1zbRj6asUDReJ-fsh0Gj3PXZfA0hYWBZRjrJtmpMvQw1P_EnQ5\">Desenho</a>'
+                                            desenho.classList.add('bg-red-500', 'rounded-md', 'p-2', 'text-white', 'absolute', 'top-[80%]', 'left-[50%]', 'z-9999', 'animate-[ping_5s_ease-out_infinite]')
+                                            desenho.id = 'desenho'
+                                            document.body.appendChild(desenho);
+                                            document.getElementById('uuiauu').remove()
+                                            document.getElementById('toast').remove()
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+
                                 }
                             }
                             else {
