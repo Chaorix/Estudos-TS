@@ -409,12 +409,12 @@
 
                             inputsFilhos.forEach(filho => {
 
-                                if (filho.value.trim() == '') {
+                                if (filho.value.toLowerCase().trim() == '') {
 
                                     alert(`${filho.id} vazio`)
 
                                 } else {
-                                    tentativa = tentativa + filho.value;
+                                    tentativa =+ filho.value.toLowerCase();
                                 }
                             });
                             alert(`Tentativa: ${tentativa}`)
@@ -427,7 +427,7 @@
                                 tentativa = palavras[iPalavraAcentuada];
                                 tentativa = tentativa.split('');
                                 inputsFilhos.forEach((filho, i) => {
-                                    filho.value = tentativa[i];
+                                    filho.value.toLowerCase().toLowerCase() = tentativa[i];
                                 });
                                 //console.log(`Funcionou: ${tentativa}`)
 
@@ -439,26 +439,26 @@
 
                                     inputs[i].disabled = true;
 
-                                    let qtdLetras = palavra.filter(l => l === filho.value);
-                                    let qtdLetrasCertas = letrasCertas.filter(l => l === filho.value);
-                                    let qtdLetrasContidas = letrasContidas.filter(l => l === filho.value);
+                                    let qtdLetras = palavra.filter(l => l === filho.value.toLowerCase());
+                                    let qtdLetrasCertas = letrasCertas.filter(l => l === filho.value.toLowerCase());
+                                    let qtdLetrasContidas = letrasContidas.filter(l => l === filho.value.toLowerCase());
 
                                     //Letra no lugar certo
-                                    if (filho.value === palavra[iAux]) {
+                                    if (filho.value.toLowerCase() === palavra[iAux]) {
                                         if (qtdLetras.length === qtdLetrasContidas.length) {
-                                            let contidos = Array.from(inputsFilhos).filter(i => i.value == filho.value);
+                                            let contidos = Array.from(inputsFilhos).filter(i => i.value == filho.value.toLowerCase());
                                             contidos[0].classList.remove('contemLetra');
                                             contidos[0].classList.add('letraErrada');
                                             //console.log(contidos)
                                         }
                                         inputs[i].classList.remove('letra');
                                         inputs[i].classList.add('letraCerta');
-                                        letrasCertas[i] = filho.value;
+                                        letrasCertas[i] = filho.value.toLowerCase();
                                         acertos++;
                                         // console.log(`acertos: ${acertos}`)
                                     }
                                     //Letra na palavra, mas no lugar errado
-                                    else if (palavra.includes(filho.value)) {
+                                    else if (palavra.includes(filho.value.toLowerCase())) {
 
                                         if ((qtdLetras.length == qtdLetrasCertas.length) || ((qtdLetrasContidas.length + qtdLetrasCertas.lenght) === qtdLetras.length)) {
                                             inputs[i].classList.remove('letra');
@@ -466,7 +466,7 @@
                                         } else if (qtdLetras.length > qtdLetrasContidas.length) {
                                             inputs[i].classList.remove('letra');
                                             inputs[i].classList.add('contemLetra')
-                                            letrasContidas[i] = filho.value;
+                                            letrasContidas[i] = filho.value.toLowerCase();
                                         } else {
                                             inputs[i].classList.remove('letra');
                                             inputs[i].classList.add('letraErrada')
