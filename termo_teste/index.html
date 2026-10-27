@@ -191,15 +191,17 @@
     </button>
 
 
-    <div class="bg-black/30 h-[100vh] w-[100vw] absolute flex justify-center items-center hidden opacity-0 transition-all ease-in-out duration-2000"
+    <div class="bg-black/30 h-[100vh] w-[100vw] absolute flex justify-center items-center hidden opacity-0  transition-all ease-in-out duration-2000"
         id="sucesso">
-        <div class="bg-white w-[40%] h-[30%] rounded-md flex justify-center items-center">
-            <h1 class="font-bold text-green-500 text-lg">Parabéns jogador!!</h1>
+        <div class="bg-white w-[70vw] h-[30%] rounded-md flex justify-center items-center text-center shrink">
+            <img src="https://media.tenor.com/sbfBfp3FeY8AAAAj/oia-uia.gif" alt="" class="animate-bounce w-[35px] md:w-[70px]">
+            <h1 class="font-bold text-green-500 text-md md:text-lg">Parabéns jogador!!</h1>
+            <img src="https://files.catbox.moe/x96g3i.png" alt="" class="animate-bounce w-[35px] md:w-[70px]">
         </div>
     </div>
 
     <div class="flex absolute bottom-1 right-1 w-[50px] h-[50px] animate-bounce">
-        <img src="https://media.tenor.com/sbfBfp3FeY8AAAAj/oia-uia.gif" alt="uuiauu">
+        <img src="https://media.tenor.com/sbfBfp3FeY8AAAAj/oia-uia.gif" alt="uuiauu" id="uuiauu">
     </div>
 
     <div class="container flex w-[80vw] md:w-[60vw] h-[75vh] rounded-lg items-center flex-col" id="principal">
@@ -487,8 +489,14 @@
                                 //console.log(`acertos: ${acertos}`)
                                 if (acertos == 5) {
                                     let modal = document.getElementById('sucesso')
+                                    let mosquitos = document.querySelectorAll('.fa-mosquito')
+                                    mosquitos.forEach(mosquito => {
+                                        mosquito.remove()
+                                    });
+                                    document.getElementById('fundo').remove()
                                     modal.classList.remove('hidden')
                                     modal.classList.remove('opacity-0')
+                                    document.getElementById('uuiauu').disabled = true
                                 } else {
                                     let idProximoGrupo = +idDivPai + 5;
                                     //console.log(idProximoGrupo)
